@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOTEL CREATIVE // CLIENT MERCHANDISE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink: #ff3eb3;
+      --black: #000000;
+      --white: #ffffff;
+      --light-pink: #ffeef8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--pink);
+      /* Retro halftone dot pattern */
+      background-image: radial-gradient(#d6248b 19%, transparent 20%);
+      background-size: 8px 8px;
+      font-family: 'Space Mono', monospace;
+      color: var(--black);
+      padding: 24px 14px 40px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 680px;
+      width: 100%;
+      background: var(--white) !important;
+      border: 4px solid var(--black);
+      box-shadow: 8px 8px 0px var(--black);
+      padding: 20px;
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+
+    .top-bar {
+      background: var(--pink);
+      color: var(--white);
+      font-family: 'Anton', sans-serif;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-align: center;
+      padding: 8px;
+      border: 2px solid var(--black);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(32px, 6vw, 48px);
+      text-align: center;
+      color: var(--pink);
+      line-height: 1;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 0 var(--black);
+      margin-bottom: 16px;
+    }
+
+    .notice-box {
+      background: var(--black);
+      color: #ffe600;
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(11px, 2.5vw, 14px);
+      letter-spacing: 0.8px;
+      white-space: nowrap;
+      text-align: center;
+      padding: 10px 8px;
+      border: 2px solid var(--pink);
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-family: 'Anton', sans-serif;
+      font-size: 18px;
+      background: var(--pink);
+      color: var(--white);
+      display: inline-block;
+      padding: 4px 10px;
+      border: 2px solid var(--black);
+      margin-bottom: 14px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 520px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .product-card {
+      border: 2px solid var(--black);
+      padding: 12px;
+      cursor: pointer;
+      background: var(--white);
+      position: relative;
+      transition: all 0.1s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .product-card:hover {
+      background: var(--light-pink);
+    }
+
+    .product-card input[type="radio"] {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      accent-color: var(--pink);
+      transform: scale(1.35);
+      z-index: 5;
+      cursor: pointer;
+    }
+
+    .product-card:has(input[type="radio"]:checked) {
+      background: var(--light-pink);
+      border: 3px solid var(--black);
+      box-shadow: 4px 4px 0px var(--black);
+    }
+
+    /* Product Image Box with Softer Radial Pink Gradient */
+    .product-img-box {
+      width: 100%;
+      height: 230px;
+      background: radial-gradient(circle at center, #fff2fa 0%, #ffb8e3 62%, #ff6ec7 100%);
+      border: 2px solid var(--black);
+      margin-bottom: 10px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      position: relative;
+    }
+
+    .product-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0px 6px 8px rgba(0, 0, 0, 0.25));
+      transition: transform 0.2s ease;
+    }
+
+    /* Stacked T-Shirt Layers for Seamless Switching */
+    .tshirt-layer {
+      position: absolute;
+      inset: 4px;
+      width: calc(100% - 8px) !important;
+      height: calc(100% - 8px) !important;
+      margin: auto;
+    }
+
+    .tshirt-layer.is-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .product-card:hover .product-img-box img {
+      transform: scale(1.05);
+    }
+
+    /* Compact BACK / FRONT + Icon Button */
+    .flip-btn {
+      position: absolute;
+      bottom: 6px;
+      left: 6px;
+      z-index: 6;
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 9px;
+      letter-spacing: 0.4px;
+      line-height: 1;
+      padding: 3px 6px;
+      border: 1px solid var(--white);
+      box-shadow: 1.5px 1.5px 0px var(--black);
+      cursor: pointer;
+      transition: background 0.1s ease, color 0.1s ease;
+    }
+
+    .flip-btn:hover {
+      background: var(--pink);
+      color: var(--white);
+      border-color: var(--black);
+    }
+
+    .item-title {
+      font-family: 'Anton', sans-serif;
+      font-size: 20px;
+      color: var(--pink);
+      margin-bottom: 2px;
+      letter-spacing: 0.5px;
+    }
+
+    .item-desc {
+      font-size: 11px;
+      color: #333;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px;
+      border: 2px solid var(--black);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--white);
+      margin-top: 4px;
+      cursor: pointer;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .field input, .field textarea {
+      width: 100%;
+      border: 2px solid var(--black);
+      padding: 10px;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      background: var(--white);
+    }
+
+    .field textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--pink);
+      color: var(--white);
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(28px, 6vw, 42px);
+      letter-spacing: 1.5px;
+      padding: 14px;
+      border: 3px solid var(--black);
+      box-shadow: 5px 5px 0px var(--black);
+      cursor: pointer;
+      margin-top: 10px;
+      transition: transform 0.05s ease;
+    }
+
+    .submit-btn:hover {
+      background: #e6289b;
+    }
+
+    .submit-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 3px 3px 0px var(--black);
+    }
+
+    .success-screen {
+      display: none;
+      text-align: center;
+      padding: 24px 10px;
+    }
+
+    .success-badge {
+      background: var(--pink);
+      color: var(--white);
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(28px, 6vw, 40px);
+      display: inline-block;
+      padding: 10px 20px;
+      border: 3px solid var(--black);
+      box-shadow: 5px 5px 0 var(--black);
+      margin-bottom: 20px;
+      letter-spacing: 1.5px;
+    }
+
+    .success-screen p {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.6;
+      color: var(--black);
+    }
+
+    /* Tiiny badge suppression */
+    a[href*="tiiny.host"],
+    a[href*="tiiny.site"],
+    #tiiny-host-badge,
+    .tiiny-badge {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <div class="top-bar">
+      HOTEL CREATIVE // CALL NOW: 020 7287 5020
+    </div>
+
+    <h1>OFFICIAL HOTEL MERCHANDISE</h1>
+
+    <div class="notice-box">
+      ★ PACKAGE INCLUDES: HOTEL BOOK &amp; HOTEL TAPE MEASURE ★
+    </div>
+
+    <form id="order-form">
+      <input type="hidden" name="access_key" value="5abbd3f9-868c-4a3c-9ebc-5e58e194afec" />
+      <input type="hidden" name="subject" value="New Hotel Creative Merch Claim" />
+      <input type="hidden" name="guaranteed_package" value="Hotel Book & Hotel Tape Measure Included" />
+      <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+      <div class="section-title">1. CHOOSE ONE EXTRA GIFT</div>
+
+      <div class="product-grid">
+
+        <!-- HOTEL T-Shirt -->
+        <label class="product-card" id="tshirt-card">
+          <input type="radio" name="chosen_item" value="Hotel T-Shirt" required>
+          <div>
+            <div class="product-img-box" id="tshirt-img-box">
+              <img src="tshirt.png" id="tshirt-front" class="tshirt-layer" alt="Hotel T-Shirt Front">
+              <img src="tshirt1.png" id="tshirt-back" class="tshirt-layer is-hidden" alt="Hotel T-Shirt Back">
+              <button type="button" class="flip-btn" id="flip-tshirt-btn">BACK ↻</button>
+            </div>
+            <div class="item-title">HOTEL T-SHIRT</div>
+            <div class="item-desc">Front &amp; Back Print</div>
+          </div>
+          <select name="tshirt_size" id="tshirt_size">
+            <option value="Small">Size: Small</option>
+            <option value="Medium" selected>Size: Medium</option>
+            <option value="Large">Size: Large</option>
+            <option value="XL">Size: XL</option>
+            <option value="2XL">Size: 2XL</option>
+            <option value="3XL">Size: 3XL</option>
+          </select>
+        </label>
+
+        <!-- HOTEL Cap -->
+        <label class="product-card">
+          <input type="radio" name="chosen_item" value="Hotel Cap">
+          <div>
+            <div class="product-img-box">
+              <img src="cap.png" alt="Hotel Cap">
+            </div>
+            <div class="item-title">HOTEL CAP</div>
+            <div class="item-desc">Embroidered Cotton Cap</div>
+          </div>
+          <div style="font-size: 11px; font-weight: 700; margin-top: 10px; color: #555;">(One Size Fits All)</div>
+        </label>
+
+        <!-- HOTEL Hoodie -->
+        <label class="product-card">
+          <input type="radio" name="chosen_item" value="Hotel Hoodie">
+          <div>
+            <div class="product-img-box">
+              <img src="hoodie.png" alt="Hotel Hoodie">
+            </div>
+            <div class="item-title">HOTEL HOODIE</div>
+            <div class="item-desc">Heavyweight Embroidered Hoodie</div>
+          </div>
+          <select name="hoodie_size" id="hoodie_size">
+            <option value="Small">Size: Small</option>
+            <option value="Medium">Size: Medium</option>
+            <option value="Large" selected>Size: Large</option>
+            <option value="XL">Size: XL</option>
+            <option value="2XL">Size: 2XL</option>
+            <option value="3XL">Size: 3XL</option>
+          </select>
+        </label>
+
+        <!-- Piston Gin -->
+        <label class="product-card">
+          <input type="radio" name="chosen_item" value="Piston Gin">
+          <div>
+            <div class="product-img-box">
+              <img src="gin.png" alt="Piston Gin">
+            </div>
+            <div class="item-title">PISTON GIN</div>
+            <div class="item-desc">London Dry Gin (70cl)</div>
+          </div>
+          <div style="font-size: 11px; font-weight: 700; margin-top: 10px; color: #555;">(Full Size Bottle // 18+)</div>
+        </label>
+
+      </div>
+
+      <div class="section-title">2. DELIVERY DETAILS</div>
+
+      <div class="field">
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" name="name" required placeholder="Alex Miller">
+      </div>
+
+      <div class="field">
+        <label for="company">Company / Agency (Optional)</label>
+        <input type="text" id="company" name="company" placeholder="Agency Name">
+      </div>
+
+      <div class="field">
+        <label for="address">Delivery Address *</label>
+        <textarea id="address" name="address" required placeholder="Street address, building/flat, city, and postcode"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="notes">Delivery Notes (Optional)</label>
+        <input type="text" id="notes" name="delivery_notes" placeholder="e.g. Leave with reception">
+      </div>
+
+      <button type="submit" id="submit-btn" class="submit-btn">CLAIM NOW ! CLAIM NOW !</button>
+    </form>
+
+    <div id="success-screen" class="success-screen">
+      <div class="success-badge">CLAIM RECEIVED!</div>
+      <p>THANK YOU. YOUR SELECTION AND DELIVERY DETAILS HAVE BEEN RECORDED.<br><br>WE'LL GET YOUR HOTEL CREATIVE GIFT PACKAGE PACKED AND DISPATCHED SHORTLY.</p>
+    </div>
+
+  </div>
+
+  <script>
+    // Seamless Front / Back T-Shirt Button Toggle
+    const tshirtFront = document.getElementById('tshirt-front');
+    const tshirtBack = document.getElementById('tshirt-back');
+    const flipTshirtBtn = document.getElementById('flip-tshirt-btn');
+    let showingFront = true;
+
+    flipTshirtBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (showingFront) {
+        tshirtFront.classList.add('is-hidden');
+        tshirtBack.classList.remove('is-hidden');
+        flipTshirtBtn.textContent = 'FRONT ↺';
+      } else {
+        tshirtBack.classList.add('is-hidden');
+        tshirtFront.classList.remove('is-hidden');
+        flipTshirtBtn.textContent = 'BACK ↻';
+      }
+      showingFront = !showingFront;
+    });
+
+    // Form Submission Handler (JSON Mode + Detailed Error Reporting)
+    const form = document.getElementById('order-form');
+    const successScreen = document.getElementById('success-screen');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      submitBtn.textContent = 'SUBMITTING...';
+      submitBtn.disabled = true;
+
+      const formData = new FormData(form);
+      const chosenItem = formData.get('chosen_item');
+
+      if (chosenItem !== 'Hotel T-Shirt') {
+        formData.delete('tshirt_size');
+      }
+      if (chosenItem !== 'Hotel Hoodie') {
+        formData.delete('hoodie_size');
+      }
+
+      const object = Object.fromEntries(formData);
+      object.botcheck = false;
+      const jsonBody = JSON.stringify(object);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: jsonBody
+      })
+      .then(async (response) => {
+        const json = await response.json();
+        if (response.status === 200 && json.success) {
+          form.style.display = 'none';
+          successScreen.style.display = 'block';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          throw new Error(json.message || 'Submission rejected by server.');
+        }
+      })
+      .catch((error) => {
+        submitBtn.textContent = 'CLAIM NOW ! CLAIM NOW !';
+        submitBtn.disabled = false;
+        alert('Error: ' + error.message);
+      });
+    });
+
+    // Tiiny Host Badge Suppression
+    const stripTiinyAnchor = () => {
+      document.querySelectorAll('a[href*="tiiny.host"], a[href*="tiiny.site"]').forEach(a => {
+        a.style.display = 'none';
+        if (a.parentElement && a.parentElement !== document.body && !a.parentElement.classList.contains('container')) {
+          a.parentElement.style.display = 'none';
+        }
+      });
+    };
+
+    window.addEventListener('load', stripTiinyAnchor);
+    setInterval(stripTiinyAnchor, 500);
+  </script>
+
+</body>
+</html>
