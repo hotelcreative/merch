@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
   <title>HOTEL CREATIVE // CLIENT MERCHANDISE</title>
 
   <!-- Absolute Favicon Links with Cache-Buster -->
@@ -73,6 +74,15 @@
       padding: 8px;
       border: 2px solid var(--black);
       margin-bottom: 16px;
+    }
+
+    .top-bar a,
+    a[href^="tel"],
+    a[x-apple-data-detectors] {
+      color: var(--white) !important;
+      text-decoration: none !important;
+      pointer-events: none;
+      cursor: default;
     }
 
     h1 {
@@ -323,7 +333,7 @@
     .success-screen {
       display: none;
       text-align: center;
-      padding: 24px 10px;
+      padding: 24px 10px 8px;
     }
 
     .success-badge {
@@ -357,6 +367,27 @@
       font-size: 12px;
       line-height: 1.6;
     }
+
+    .support-footer {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      margin-top: 22px;
+      padding-top: 14px;
+      border-top: 2px dashed var(--black);
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.6;
+      color: var(--black) !important;
+    }
+
+    .support-footer a {
+      display: inline-block;
+      color: #ff3eb3 !important;
+      text-decoration: underline !important;
+      font-weight: 700;
+    }
   </style>
 </head>
 <body>
@@ -364,7 +395,7 @@
   <div class="container">
     
     <div class="top-bar">
-      HOTEL CREATIVE // CALL NOW: 020 7287 5020
+      HOTEL CREATIVE // CALL NOW: <span>020&nbsp;7287&nbsp;5020</span>
     </div>
 
     <h1>OFFICIAL HOTEL MERCHANDISE</h1>
@@ -489,6 +520,9 @@
       <div class="success-badge">CLAIM RECEIVED!</div>
       <p>THANK YOU. YOUR SELECTION AND DELIVERY DETAILS HAVE BEEN RECORDED.<br><br>YOUR HOTEL CREATIVE GIFT PACKAGE WILL BE ON ITS WAY SOON.</p>
       <div id="order-recap" class="order-recap"></div>
+      <div class="support-footer">
+        ANY ISSUES OR QUESTIONS? EMAIL <a href="mailto:jed@hotelcreative.com?subject=Merch%20Claim%20Enquiry">JED@HOTELCREATIVE.COM</a>
+      </div>
     </div>
 
   </div>
