@@ -4,8 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HOTEL CREATIVE // CLIENT MERCHANDISE</title>
-  <link rel="icon" type="image/png" href="favicon.png?v=2">
-  <link rel="apple-touch-icon" href="favicon.png?v=2">
+
+  <!-- Absolute Favicon Links with Cache-Buster -->
+  <link rel="icon" type="image/png" sizes="512x512" href="https://hotelcreative.github.io/merch/favicon.png?v=4">
+  <link rel="shortcut icon" type="image/png" href="https://hotelcreative.github.io/merch/favicon.png?v=4">
+  <link rel="apple-touch-icon" href="https://hotelcreative.github.io/merch/favicon.png?v=4">
+
+  <!-- Open Graph / Social Link Preview Tags -->
+  <meta name="description" content="Claim your complimentary Hotel Creative client gift — choose a T-Shirt, Cap, Hoodie, or Piston Gin, plus our Hotel Book & Tape Measure.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hotelcreative.github.io/merch/">
+  <meta property="og:title" content="HOTEL CREATIVE // Official Client Merchandise">
+  <meta property="og:description" content="Choose one complimentary gift (T-Shirt, Cap, Hoodie, or Piston Gin) + Hotel Book & Tape Measure included.">
+  <meta property="og:image" content="https://hotelcreative.github.io/merch/tshirt.png">
+  <meta name="twitter:card" content="summary_large_image">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -138,6 +151,27 @@
       background: var(--light-pink);
       border: 3px solid var(--black);
       box-shadow: 4px 4px 0px var(--black);
+    }
+
+    /* Selected Pill Badge */
+    .selected-badge {
+      display: none;
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      z-index: 6;
+      background: var(--black);
+      color: #ffe600;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 3px 6px;
+      border: 1.5px solid var(--pink);
+    }
+
+    .product-card:has(input[type="radio"]:checked) .selected-badge {
+      display: inline-block;
     }
 
     /* Product Image Box with Softer Radial Pink Gradient */
@@ -311,6 +345,33 @@
       color: var(--black);
     }
 
+    .order-recap {
+      background: var(--light-pink);
+      border: 2px solid var(--black);
+      box-shadow: 4px 4px 0 var(--black);
+      padding: 14px;
+      margin: 18px auto 0;
+      max-width: 480px;
+      text-align: left;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .studio-footer {
+      margin-top: 24px;
+      padding-top: 12px;
+      border-top: 2px solid var(--black);
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .studio-footer a {
+      color: var(--black);
+      text-decoration: underline;
+    }
+
     /* Tiiny badge suppression */
     a[href*="tiiny.host"],
     a[href*="tiiny.site"],
@@ -349,6 +410,7 @@
 
         <!-- HOTEL T-Shirt -->
         <label class="product-card" id="tshirt-card">
+          <span class="selected-badge">SELECTED ✓</span>
           <input type="radio" name="chosen_item" value="Hotel T-Shirt" required>
           <div>
             <div class="product-img-box" id="tshirt-img-box">
@@ -371,6 +433,7 @@
 
         <!-- HOTEL Cap -->
         <label class="product-card">
+          <span class="selected-badge">SELECTED ✓</span>
           <input type="radio" name="chosen_item" value="Hotel Cap">
           <div>
             <div class="product-img-box">
@@ -384,6 +447,7 @@
 
         <!-- HOTEL Hoodie -->
         <label class="product-card">
+          <span class="selected-badge">SELECTED ✓</span>
           <input type="radio" name="chosen_item" value="Hotel Hoodie">
           <div>
             <div class="product-img-box">
@@ -404,6 +468,7 @@
 
         <!-- Piston Gin -->
         <label class="product-card">
+          <span class="selected-badge">SELECTED ✓</span>
           <input type="radio" name="chosen_item" value="Piston Gin">
           <div>
             <div class="product-img-box">
@@ -445,6 +510,11 @@
     <div id="success-screen" class="success-screen">
       <div class="success-badge">CLAIM RECEIVED!</div>
       <p>THANK YOU. YOUR SELECTION AND DELIVERY DETAILS HAVE BEEN RECORDED.<br><br>WE'LL GET YOUR HOTEL CREATIVE GIFT PACKAGE PACKED AND DISPATCHED SHORTLY.</p>
+      <div id="order-recap" class="order-recap"></div>
+    </div>
+
+    <div class="studio-footer">
+      HOTEL CREATIVE // LONDON &bull; <a href="https://hotelcreative.com" target="_blank" rel="noopener">HOTELCREATIVE.COM</a> &bull; 020 7287 5020
     </div>
 
   </div>
@@ -472,9 +542,10 @@
       showingFront = !showingFront;
     });
 
-    // Form Submission Handler (JSON Mode + Detailed Error Reporting)
+    // Form Submission Handler (JSON Mode + Dynamic Order Summary)
     const form = document.getElementById('order-form');
     const successScreen = document.getElementById('success-screen');
+    const orderRecap = document.getElementById('order-recap');
     const submitBtn = document.getElementById('submit-btn');
 
     form.addEventListener('submit', function(e) {
@@ -484,11 +555,17 @@
 
       const formData = new FormData(form);
       const chosenItem = formData.get('chosen_item');
+      let selectedSize = '';
 
-      if (chosenItem !== 'Hotel T-Shirt') {
+      if (chosenItem === 'Hotel T-Shirt') {
+        selectedSize = formData.get('tshirt_size');
+      } else {
         formData.delete('tshirt_size');
       }
-      if (chosenItem !== 'Hotel Hoodie') {
+
+      if (chosenItem === 'Hotel Hoodie') {
+        selectedSize = formData.get('hoodie_size');
+      } else {
         formData.delete('hoodie_size');
       }
 
@@ -507,6 +584,13 @@
       .then(async (response) => {
         const json = await response.json();
         if (response.status === 200 && json.success) {
+          const sizeLine = selectedSize ? ` (${selectedSize})` : '';
+          orderRecap.innerHTML =
+            `<strong>RECIPIENT:</strong> ${object.name}<br>` +
+            `<strong>GIFT SELECTED:</strong> ${chosenItem}${sizeLine}<br>` +
+            `<strong>INCLUDED BONUS:</strong> Hotel Book &amp; Hotel Tape Measure<br>` +
+            `<strong>DELIVERY TO:</strong> ${object.address.replace(/\n/g, ', ')}`;
+
           form.style.display = 'none';
           successScreen.style.display = 'block';
           window.scrollTo({ top: 0, behavior: 'smooth' });
