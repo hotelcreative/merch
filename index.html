@@ -153,27 +153,6 @@
       box-shadow: 4px 4px 0px var(--black);
     }
 
-    /* Selected Pill Badge */
-    .selected-badge {
-      display: none;
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      z-index: 6;
-      background: var(--black);
-      color: #ffe600;
-      font-family: 'Space Mono', monospace;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      padding: 3px 6px;
-      border: 1.5px solid var(--pink);
-    }
-
-    .product-card:has(input[type="radio"]:checked) .selected-badge {
-      display: inline-block;
-    }
-
     /* Product Image Box with Softer Radial Pink Gradient */
     .product-img-box {
       width: 100%;
@@ -357,21 +336,6 @@
       line-height: 1.6;
     }
 
-    .studio-footer {
-      margin-top: 24px;
-      padding-top: 12px;
-      border-top: 2px solid var(--black);
-      text-align: center;
-      font-size: 11px;
-      font-weight: 700;
-      color: #333;
-    }
-
-    .studio-footer a {
-      color: var(--black);
-      text-decoration: underline;
-    }
-
     /* Tiiny badge suppression */
     a[href*="tiiny.host"],
     a[href*="tiiny.site"],
@@ -410,7 +374,6 @@
 
         <!-- HOTEL T-Shirt -->
         <label class="product-card" id="tshirt-card">
-          <span class="selected-badge">SELECTED ✓</span>
           <input type="radio" name="chosen_item" value="Hotel T-Shirt" required>
           <div>
             <div class="product-img-box" id="tshirt-img-box">
@@ -433,7 +396,6 @@
 
         <!-- HOTEL Cap -->
         <label class="product-card">
-          <span class="selected-badge">SELECTED ✓</span>
           <input type="radio" name="chosen_item" value="Hotel Cap">
           <div>
             <div class="product-img-box">
@@ -447,7 +409,6 @@
 
         <!-- HOTEL Hoodie -->
         <label class="product-card">
-          <span class="selected-badge">SELECTED ✓</span>
           <input type="radio" name="chosen_item" value="Hotel Hoodie">
           <div>
             <div class="product-img-box">
@@ -468,7 +429,6 @@
 
         <!-- Piston Gin -->
         <label class="product-card">
-          <span class="selected-badge">SELECTED ✓</span>
           <input type="radio" name="chosen_item" value="Piston Gin">
           <div>
             <div class="product-img-box">
@@ -511,10 +471,6 @@
       <div class="success-badge">CLAIM RECEIVED!</div>
       <p>THANK YOU. YOUR SELECTION AND DELIVERY DETAILS HAVE BEEN RECORDED.<br><br>WE'LL GET YOUR HOTEL CREATIVE GIFT PACKAGE PACKED AND DISPATCHED SHORTLY.</p>
       <div id="order-recap" class="order-recap"></div>
-    </div>
-
-    <div class="studio-footer">
-      HOTEL CREATIVE // LONDON &bull; <a href="https://hotelcreative.com" target="_blank" rel="noopener">HOTELCREATIVE.COM</a> &bull; 020 7287 5020
     </div>
 
   </div>
