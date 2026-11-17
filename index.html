@@ -265,15 +265,35 @@
     .field input, .field textarea {
       width: 100%;
       border: 2px solid var(--black);
-      padding: 10px;
+      padding: 12px 10px;
       font-family: 'Space Mono', monospace;
-      font-size: 13px;
+      font-size: 14px;
       background: var(--white);
     }
 
+    .field input:focus, .field textarea:focus, select:focus {
+      outline: none;
+      background: var(--light-pink);
+    }
+
     .field textarea {
-      min-height: 70px;
+      min-height: 76px;
       resize: vertical;
+    }
+
+    /* In-Page Retro Error Banner */
+    .error-banner {
+      display: none;
+      background: var(--black);
+      color: #ffe600;
+      border: 2px solid var(--pink);
+      box-shadow: 4px 4px 0px var(--pink);
+      padding: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 14px;
+      text-align: center;
+      line-height: 1.5;
     }
 
     .submit-btn {
@@ -287,7 +307,7 @@
       border: 3px solid var(--black);
       box-shadow: 5px 5px 0px var(--black);
       cursor: pointer;
-      margin-top: 10px;
+      margin-top: 12px;
       transition: transform 0.05s ease;
     }
 
@@ -336,17 +356,6 @@
       text-align: left;
       font-size: 12px;
       line-height: 1.6;
-    }
-
-    /* Tiiny badge suppression */
-    a[href*="tiiny.host"],
-    a[href*="tiiny.site"],
-    #tiiny-host-badge,
-    .tiiny-badge {
-      display: none !important;
-      visibility: hidden !important;
-      opacity: 0 !important;
-      pointer-events: none !important;
     }
   </style>
 </head>
@@ -448,23 +457,30 @@
 
       <div class="field">
         <label for="name">Full Name *</label>
-        <input type="text" id="name" name="name" required placeholder="Alex Miller">
+        <input type="text" id="name" name="name" autocomplete="name" required placeholder="Alex Miller">
       </div>
 
       <div class="field">
         <label for="company">Company / Agency (Optional)</label>
-        <input type="text" id="company" name="company" placeholder="Agency Name">
+        <input type="text" id="company" name="company" autocomplete="organization" placeholder="Agency Name">
+      </div>
+
+      <div class="field">
+        <label for="contact">Email or Mobile (Optional — For Courier Alerts)</label>
+        <input type="text" id="contact" name="courier_contact" autocomplete="email" placeholder="alex@agency.com or 07700 900000">
       </div>
 
       <div class="field">
         <label for="address">Delivery Address *</label>
-        <textarea id="address" name="address" required placeholder="Street address, building/flat, city, and postcode"></textarea>
+        <textarea id="address" name="address" autocomplete="street-address" required placeholder="Street address, building/flat, city, and postcode"></textarea>
       </div>
 
       <div class="field">
         <label for="notes">Delivery Notes (Optional)</label>
         <input type="text" id="notes" name="delivery_notes" placeholder="e.g. Leave with reception">
       </div>
+
+      <div id="error-banner" class="error-banner" role="alert"></div>
 
       <button type="submit" id="submit-btn" class="submit-btn">CLAIM NOW ! CLAIM NOW !</button>
     </form>
@@ -505,9 +521,12 @@
     const successScreen = document.getElementById('success-screen');
     const orderRecap = document.getElementById('order-recap');
     const submitBtn = document.getElementById('submit-btn');
+    const errorBanner = document.getElementById('error-banner');
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
+      errorBanner.style.display = 'none';
+      errorBanner.textContent = '';
       submitBtn.textContent = 'SUBMITTING...';
       submitBtn.disabled = true;
 
@@ -543,10 +562,15 @@
         const json = await response.json();
         if (response.status === 200 && json.success) {
           const sizeLine = selectedSize ? ` (${selectedSize})` : '';
+          const contactLine = object.courier_contact
+            ? `<strong>COURIER ALERTS:</strong> ${object.courier_contact}<br>`
+            : '';
+
           orderRecap.innerHTML =
             `<strong>RECIPIENT:</strong> ${object.name}<br>` +
             `<strong>GIFT SELECTED:</strong> ${chosenItem}${sizeLine}<br>` +
             `<strong>INCLUDED:</strong> Hotel Book &amp; Hotel Tape Measure<br>` +
+            contactLine +
             `<strong>DELIVERY TO:</strong> ${object.address.replace(/\n/g, ', ')}`;
 
           form.style.display = 'none';
@@ -559,22 +583,10 @@
       .catch((error) => {
         submitBtn.textContent = 'CLAIM NOW ! CLAIM NOW !';
         submitBtn.disabled = false;
-        alert('Error: ' + error.message);
+        errorBanner.textContent = '⚠ SUBMISSION ERROR: ' + error.message.toUpperCase() + ' — PLEASE TRY AGAIN.';
+        errorBanner.style.display = 'block';
       });
     });
-
-    // Tiiny Host Badge Suppression
-    const stripTiinyAnchor = () => {
-      document.querySelectorAll('a[href*="tiiny.host"], a[href*="tiiny.site"]').forEach(a => {
-        a.style.display = 'none';
-        if (a.parentElement && a.parentElement !== document.body && !a.parentElement.classList.contains('container')) {
-          a.parentElement.style.display = 'none';
-        }
-      });
-    };
-
-    window.addEventListener('load', stripTiinyAnchor);
-    setInterval(stripTiinyAnchor, 500);
   </script>
 
 </body>
