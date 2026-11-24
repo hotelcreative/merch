@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="format-detection" content="telephone=no">
-  <title>HOTEL CREATIVE // CLIENT MERCHANDISE</title>
+  <title>HOTEL CREATIVE // 15TH ANNIVERSARY COLLECTION</title>
 
   <!-- Absolute Favicon Links with Cache-Buster -->
   <link rel="icon" type="image/png" sizes="512x512" href="https://hotelcreative.github.io/merch/favicon.png?v=5">
@@ -12,11 +12,11 @@
   <link rel="apple-touch-icon" href="https://hotelcreative.github.io/merch/favicon.png?v=5">
 
   <!-- Open Graph / Social Link Preview Tags -->
-  <meta name="description" content="Claim your complimentary Hotel Creative gift package — Hotel Book, Tape Measure & your choice of merch.">
+  <meta name="description" content="Claim your complimentary Hotel Creative 15th Anniversary gift package — Hotel 15 Anniversary Book, Hotel Sticker, Tape Measure & your choice of merch.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hotelcreative.github.io/merch/">
-  <meta property="og:title" content="HOTEL CREATIVE // MERCH CLAIM">
-  <meta property="og:description" content="Includes Hotel Book & Tape Measure, plus your choice of T-Shirt, Cap, Hoodie, or Piston Gin.">
+  <meta property="og:title" content="HOTEL'S 15TH ANNIVERSARY COLLECTION">
+  <meta property="og:description" content="Includes Hotel 15 Anniversary Book, Hotel Sticker & Tape Measure, plus your choice of Hoodie, T-Shirt, Cap, or Hotel x Piston Gin.">
   <meta property="og:image" content="https://hotelcreative.github.io/merch/preview.png?v=1">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -31,6 +31,7 @@
       --black: #000000;
       --white: #ffffff;
       --light-pink: #ffeef8;
+      --yellow: #ffe600;
     }
 
     * {
@@ -64,16 +65,43 @@
       opacity: 1 !important;
     }
 
+    /* Scrolling Marquee Top Bar */
     .top-bar {
       background: var(--pink);
       color: var(--white);
       font-family: 'Anton', sans-serif;
       font-size: 14px;
       letter-spacing: 1px;
-      text-align: center;
-      padding: 8px;
+      padding: 8px 0;
       border: 2px solid var(--black);
       margin-bottom: 16px;
+      overflow: hidden;
+      white-space: nowrap;
+      display: flex;
+    }
+
+    .marquee-track {
+      display: flex;
+      flex-shrink: 0;
+      min-width: 100%;
+      animation: marqueeScroll 18s linear infinite;
+    }
+
+    .top-bar:hover .marquee-track {
+      animation-play-state: paused;
+    }
+
+    .marquee-track span {
+      padding-right: 36px;
+    }
+
+    @keyframes marqueeScroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
     }
 
     .top-bar a,
@@ -98,15 +126,15 @@
 
     .notice-box {
       background: var(--black);
-      color: #ffe600;
+      color: var(--yellow);
       font-family: 'Anton', sans-serif;
-      font-size: clamp(11px, 2.5vw, 14px);
+      font-size: clamp(12px, 2.6vw, 15px);
       letter-spacing: 0.8px;
-      white-space: nowrap;
+      line-height: 1.35;
       text-align: center;
-      padding: 10px 8px;
+      padding: 10px 10px;
       border: 2px solid var(--pink);
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
     .section-title {
@@ -120,6 +148,7 @@
       margin-bottom: 14px;
     }
 
+    /* Selectable 2x2 Merch Grid */
     .product-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -165,7 +194,6 @@
       box-shadow: 4px 4px 0px var(--black);
     }
 
-    /* Product Image Box with Softer Radial Pink Gradient */
     .product-img-box {
       width: 100%;
       height: 230px;
@@ -246,6 +274,7 @@
       color: #333;
       margin-bottom: 8px;
       font-weight: 700;
+      line-height: 1.4;
     }
 
     select {
@@ -295,7 +324,7 @@
     .error-banner {
       display: none;
       background: var(--black);
-      color: #ffe600;
+      color: var(--yellow);
       border: 2px solid var(--pink);
       box-shadow: 4px 4px 0px var(--pink);
       padding: 12px;
@@ -362,10 +391,38 @@
       box-shadow: 4px 4px 0 var(--black);
       padding: 14px;
       margin: 18px auto 0;
-      max-width: 480px;
+      max-width: 500px;
       text-align: left;
       font-size: 12px;
       line-height: 1.6;
+    }
+
+    .customs-callout {
+      background: var(--black);
+      color: var(--yellow);
+      border: 2px solid var(--pink);
+      box-shadow: 4px 4px 0 var(--pink);
+      padding: 14px;
+      margin: 18px auto 0;
+      max-width: 500px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    .customs-callout strong {
+      font-family: 'Anton', sans-serif;
+      font-size: 15px;
+      letter-spacing: 0.6px;
+      display: block;
+      margin-bottom: 4px;
+      color: var(--white);
+    }
+
+    .customs-callout a {
+      color: var(--yellow) !important;
+      text-decoration: underline !important;
     }
 
     .support-footer {
@@ -395,28 +452,58 @@
   <div class="container">
     
     <div class="top-bar">
-      HOTEL CREATIVE // CALL NOW: <span>020&nbsp;7287&nbsp;5020</span>
+      <div class="marquee-track">
+        <span>HOTEL CREATIVE // DON'T CALL</span>
+        <span>HOTEL CREATIVE // DON'T CALL</span>
+        <span>HOTEL CREATIVE // DON'T CALL</span>
+      </div>
+      <div class="marquee-track" aria-hidden="true">
+        <span>HOTEL CREATIVE // DON'T CALL</span>
+        <span>HOTEL CREATIVE // DON'T CALL</span>
+        <span>HOTEL CREATIVE // DON'T CALL</span>
+      </div>
     </div>
 
-    <h1>OFFICIAL HOTEL MERCHANDISE</h1>
+    <h1>HOTEL'S 15TH ANNIVERSARY COLLECTION</h1>
 
     <div class="notice-box">
-      ★ PACKAGE INCLUDES: HOTEL BOOK &amp; HOTEL TAPE MEASURE ★
+      ★ INCLUDES: HOTEL 15 ANNIVERSARY BOOK, HOTEL STICKER &amp; TAPE MEASURE ★
     </div>
 
     <form id="order-form">
       <input type="hidden" name="access_key" value="5abbd3f9-868c-4a3c-9ebc-5e58e194afec" />
-      <input type="hidden" name="subject" value="New Hotel Creative Merch Claim" />
-      <input type="hidden" name="guaranteed_package" value="Hotel Book & Hotel Tape Measure Included" />
+      <input type="hidden" name="subject" value="New Hotel's 15th Anniversary Collection Order" />
+      <input type="hidden" name="guaranteed_package" value="Hotel 15 Anniversary Book (Ships February), Hotel Sticker & Hotel Tape Measure" />
       <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
+      <!-- SECTION 1: CHOOSE ONE EXTRA GIFT -->
       <div class="section-title">1. CHOOSE ONE EXTRA GIFT</div>
 
       <div class="product-grid">
 
-        <!-- HOTEL T-Shirt -->
+        <!-- 1. HOTEL Hoodie (Top Left) -->
+        <label class="product-card" id="hoodie-card">
+          <input type="radio" name="chosen_item" value="Hotel Hoodie" required>
+          <div>
+            <div class="product-img-box">
+              <img src="hoodie.png" alt="Hotel Hoodie">
+            </div>
+            <div class="item-title">HOTEL HOODIE</div>
+            <div class="item-desc">Heavyweight Embroidered Hoodie</div>
+          </div>
+          <select name="hoodie_size" id="hoodie_size">
+            <option value="Small">Size: Small</option>
+            <option value="Medium">Size: Medium</option>
+            <option value="Large" selected>Size: Large</option>
+            <option value="XL">Size: XL</option>
+            <option value="2XL">Size: 2XL</option>
+            <option value="3XL">Size: 3XL</option>
+          </select>
+        </label>
+
+        <!-- 2. HOTEL T-Shirt (Top Right) -->
         <label class="product-card" id="tshirt-card">
-          <input type="radio" name="chosen_item" value="Hotel T-Shirt" required>
+          <input type="radio" name="chosen_item" value="Hotel T-Shirt">
           <div>
             <div class="product-img-box" id="tshirt-img-box">
               <img src="tshirt.png" id="tshirt-front" class="tshirt-layer" alt="Hotel T-Shirt Front">
@@ -436,7 +523,7 @@
           </select>
         </label>
 
-        <!-- HOTEL Cap -->
+        <!-- 3. HOTEL Cap (Bottom Left) -->
         <label class="product-card">
           <input type="radio" name="chosen_item" value="Hotel Cap">
           <div>
@@ -449,41 +536,22 @@
           <div style="font-size: 11px; font-weight: 700; margin-top: 10px; color: #555;">(One Size Fits All)</div>
         </label>
 
-        <!-- HOTEL Hoodie -->
+        <!-- 4. HOTEL X PISTON GIN (Bottom Right) -->
         <label class="product-card">
-          <input type="radio" name="chosen_item" value="Hotel Hoodie">
+          <input type="radio" name="chosen_item" value="Hotel x Piston Gin">
           <div>
             <div class="product-img-box">
-              <img src="hoodie.png" alt="Hotel Hoodie">
+              <img src="gin.png" alt="Hotel x Piston Gin">
             </div>
-            <div class="item-title">HOTEL HOODIE</div>
-            <div class="item-desc">Heavyweight Embroidered Hoodie</div>
-          </div>
-          <select name="hoodie_size" id="hoodie_size">
-            <option value="Small">Size: Small</option>
-            <option value="Medium">Size: Medium</option>
-            <option value="Large" selected>Size: Large</option>
-            <option value="XL">Size: XL</option>
-            <option value="2XL">Size: 2XL</option>
-            <option value="3XL">Size: 3XL</option>
-          </select>
-        </label>
-
-        <!-- Piston Gin -->
-        <label class="product-card">
-          <input type="radio" name="chosen_item" value="Piston Gin">
-          <div>
-            <div class="product-img-box">
-              <img src="gin.png" alt="Piston Gin">
-            </div>
-            <div class="item-title">PISTON GIN</div>
-            <div class="item-desc">London Dry Gin (70cl)</div>
+            <div class="item-title">HOTEL X PISTON GIN</div>
+            <div class="item-desc">‘Juicy Peachy Gin’ (70cl)</div>
           </div>
           <div style="font-size: 11px; font-weight: 700; margin-top: 10px; color: #555;">(Full Size Bottle // 18+)</div>
         </label>
 
       </div>
 
+      <!-- SECTION 2: DELIVERY DETAILS -->
       <div class="section-title">2. DELIVERY DETAILS</div>
 
       <div class="field">
@@ -513,15 +581,21 @@
 
       <div id="error-banner" class="error-banner" role="alert"></div>
 
-      <button type="submit" id="submit-btn" class="submit-btn">CLAIM NOW! CLAIM NOW!</button>
+      <button type="submit" id="submit-btn" class="submit-btn">ORDER NOW! ORDER NOW!</button>
     </form>
 
     <div id="success-screen" class="success-screen">
-      <div class="success-badge">CLAIM RECEIVED!</div>
-      <p>THANK YOU. YOUR SELECTION AND DELIVERY DETAILS HAVE BEEN RECORDED.<br><br>YOUR HOTEL CREATIVE GIFT PACKAGE WILL BE ON ITS WAY SOON.</p>
+      <div class="success-badge">ORDER RECEIVED!</div>
+      <p>THANK YOU. YOUR SELECTION AND DELIVERY DETAILS HAVE BEEN RECORDED.<br><br>YOUR HOTEL'S 15TH ANNIVERSARY COLLECTION BOX WILL BE ON ITS WAY SOON.</p>
       <div id="order-recap" class="order-recap"></div>
+
+      <div class="customs-callout">
+        <strong>INTERNATIONAL SHIPPING &amp; CUSTOMS TAXES</strong>
+        For international orders, we will try to cover all customs duties and taxes upfront. If you do get charged upon delivery, email your receipt to <a href="mailto:jed@hotelcreative.com?subject=International%20Customs%20Reimbursement">JED@HOTELCREATIVE.COM</a> and we will reimburse you in full.
+      </div>
+
       <div class="support-footer">
-        ANY ISSUES OR QUESTIONS? EMAIL <a href="mailto:jed@hotelcreative.com?subject=Merch%20Claim%20Enquiry">JED@HOTELCREATIVE.COM</a>
+        ANY ISSUES OR QUESTIONS? EMAIL <a href="mailto:jed@hotelcreative.com?subject=15th%20Anniversary%20Order%20Enquiry">JED@HOTELCREATIVE.COM</a>
       </div>
     </div>
 
@@ -548,6 +622,20 @@
         flipTshirtBtn.textContent = 'BACK ↻';
       }
       showingFront = !showingFront;
+    });
+
+    // Auto-select Product Card When Changing Size Dropdown
+    const hoodieSizeSelect = document.getElementById('hoodie_size');
+    const tshirtSizeSelect = document.getElementById('tshirt_size');
+
+    hoodieSizeSelect.addEventListener('change', function() {
+      const radio = document.querySelector('input[name="chosen_item"][value="Hotel Hoodie"]');
+      if (radio) radio.checked = true;
+    });
+
+    tshirtSizeSelect.addEventListener('change', function() {
+      const radio = document.querySelector('input[name="chosen_item"][value="Hotel T-Shirt"]');
+      if (radio) radio.checked = true;
     });
 
     // Form Submission Handler (JSON Mode + Dynamic Order Summary)
@@ -602,8 +690,8 @@
 
           orderRecap.innerHTML =
             `<strong>RECIPIENT:</strong> ${object.name}<br>` +
-            `<strong>GIFT SELECTED:</strong> ${chosenItem}${sizeLine}<br>` +
-            `<strong>INCLUDED:</strong> Hotel Book &amp; Hotel Tape Measure<br>` +
+            `<strong>EXTRA GIFT SELECTED:</strong> ${chosenItem}${sizeLine}<br>` +
+            `<strong>INCLUDED FREE:</strong> Hotel 15 Anniversary Book (Ships February), Hotel Sticker &amp; Hotel Tape Measure<br>` +
             contactLine +
             `<strong>DELIVERY TO:</strong> ${object.address.replace(/\n/g, ', ')}`;
 
@@ -615,7 +703,7 @@
         }
       })
       .catch((error) => {
-        submitBtn.textContent = 'CLAIM NOW ! CLAIM NOW !';
+        submitBtn.textContent = 'ORDER NOW! ORDER NOW!';
         submitBtn.disabled = false;
         errorBanner.textContent = '⚠ SUBMISSION ERROR: ' + error.message.toUpperCase() + ' — PLEASE TRY AGAIN.';
         errorBanner.style.display = 'block';
